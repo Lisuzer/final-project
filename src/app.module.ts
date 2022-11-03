@@ -10,6 +10,7 @@ import { StationsModule } from './stations/stations.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { TrainsModule } from './trains/trains.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { AuthModule } from './auth/auth.module';
     StationsModule,
     TicketsModule,
     TrainsModule,
-    AuthModule
+    AuthModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],
