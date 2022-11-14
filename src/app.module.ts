@@ -10,7 +10,7 @@ import { StationsModule } from './stations/stations.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { TrainsModule } from './trains/trains.module';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
+import { UsersModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import path from 'path';
@@ -41,7 +41,7 @@ import path from 'path';
     TicketsModule,
     TrainsModule,
     AuthModule,
-    UserModule
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],

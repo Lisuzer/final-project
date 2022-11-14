@@ -12,15 +12,15 @@ export class PricesService {
         private readonly priceRep: Repository<PriceEntity>
     ) { }
 
-    async findOneById(id: string) {
+    async findOneById(id: string): Promise<PriceEntity> {
         return await this.priceRep.findOneBy({ id });
     }
 
-    async findAll() {
+    async findAll(): Promise<PriceEntity[]> {
         return await this.priceRep.find();
     }
 
-    async create(dto: CreatePriceDto) {
+    async create(dto: CreatePriceDto): Promise<PriceEntity> {
         const { carriageType, trainType, ...rest } = dto;
         const prices = await this.findAll()
         prices.forEach(el => {
@@ -31,7 +31,7 @@ export class PricesService {
         return await this.priceRep.save({ carriageType, trainType, ...rest });
     }
 
-    async update(id: string, dto: UpdatePriceDto) {
+    async update(id: string, dto: UpdatePriceDto): Promise<PriceEntity> {
         const { value } = dto;
         const price = await this.findOneById(id);
         if (!price) {
@@ -42,7 +42,7 @@ export class PricesService {
         return price;
     }
 
-    async delete(id: string) {
+    async delete(id: string): Promise<PriceEntity> {
         const price = await this.findOneById(id);
         if (!price) {
             throw new BadRequestException("Price not founded");

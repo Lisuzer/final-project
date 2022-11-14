@@ -57,20 +57,23 @@ export class TrainsService {
     }
 
     async update(id: string, dto: UpdateTrainDto): Promise<TrainEntity> {
-        const { employees, trainType, number } = dto;
+        const { employees, ...rest } = dto;
         const allowed = ['driver', 'head', 'driverAssistant'];
         const trainEntity = await this.findOneById(id);
         if (!trainEntity) {
             throw new BadRequestException("can't find train by givven id");
         }
-        const employeeEntities = await this.employeesService.findNeededEmployees(allowed, employees);
-        if (trainType) {
-            trainEntity.trainType = trainType;
+        if (employees) {
+            const employeeEntities = await this.employeesService.findNeededEmployees(allowed, employees);
+            trainEntity.employees = [...employeeEntities];
         }
-        if (number) {
-            trainEntity.number = number;
-        }
-        trainEntity.employees = [...employeeEntities];
+        Object.keys(rest).forEach((key) => {
+            if (trainEntity[key]) {
+                trainEntity[key] = rest[key];
+            } else {
+                throw new BadRequestException(`Unexpected field [${key}]`);
+            }
+        });
         await this.trainRep.update(trainEntity.id, trainEntity);
         return trainEntity;
     }

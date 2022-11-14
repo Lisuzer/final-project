@@ -52,7 +52,7 @@ export class StationsService {
         return station;
     }
 
-    async delete(id: string) {
+    async delete(id: string): Promise<StationEntity> {
         const station = await this.findOneById(id);
         if (!station) {
             throw new BadRequestException("station not found");
