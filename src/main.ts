@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('Railway ticket booking system')
-    .setDescription('Lets user buy railway tickets')
+    .setDescription("let's buy train tickets")
     .setVersion('1.0')
     .addBearerAuth(
       {

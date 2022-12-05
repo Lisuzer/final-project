@@ -1,27 +1,41 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Type } from "class-transformer";
-import { IsEnum, IsNotEmpty, IsString, ValidateNested } from "class-validator";
-import { Frequency } from "../schemas/frequency.enum";
-import { StationElementDto } from "./create-route-station.dto";
-
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { Frequency } from '../schemas/frequency.enum';
+import { StationElementDto } from './create-route-station.dto';
 
 export class CreateRouteDto {
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    train: string;
+  @ApiProperty({
+    required: true,
+    description: 'Train id',
+  })
+  @IsString()
+  @IsNotEmpty()
+  train: string;
 
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    name: string;
+  @ApiProperty({
+    required: true,
+    default: 'Rotan',
+    description: 'Route name',
+  })
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
-    @ApiProperty({ type: () => [StationElementDto] })
-    @ValidateNested({ each: true })
-    @Type(() => StationElementDto)
-    stations: StationElementDto[];
+  @ApiProperty({
+    required: true,
+    type: () => [StationElementDto],
+  })
+  @ValidateNested({ each: true })
+  @Type(() => StationElementDto)
+  @IsNotEmpty({ each: true })
+  stations: StationElementDto[];
 
-    @ApiProperty({ enum: Frequency })
-    @IsEnum(Frequency, { each: true })
-    frequency: Frequency[];
+  @ApiProperty({
+    required: true,
+    enum: Frequency,
+  })
+  @IsArray()
+  @IsNotEmpty({ each: true })
+  frequency: Frequency[];
 }

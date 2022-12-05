@@ -1,4 +1,3 @@
-import { UserDto } from "./user.dto";
+import { UserDto } from './user.dto';
 
-
-export class CreateUserDto extends UserDto { }
+export class CreateUserDto extends UserDto {}

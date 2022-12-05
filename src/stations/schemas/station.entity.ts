@@ -1,33 +1,32 @@
-import { BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import { BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('station')
 export class StationEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    name: string;
+  @Column({ unique: true })
+  name: string;
 
-    @Column({ unique: true })
-    code: number;
+  @Column({ unique: true })
+  code: number;
 
-    @Column({
-        nullable: true,
-        type: 'timestamp',
-        default: () => 'CURRENT_TIMESTAMP',
-    })
-    createdAt?: Date;
+  @Column({
+    nullable: true,
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt?: Date;
 
-    @Column({
-        nullable: true,
-        type: 'timestamp',
-        default: () => 'CURRENT_TIMESTAMP',
-    })
-    updatedAt?: Date;
+  @Column({
+    nullable: true,
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt?: Date;
 
-    @BeforeUpdate()
-    updateDates() {
-        this.updatedAt = new Date();
-    }
+  @BeforeUpdate()
+  updateDates() {
+    this.updatedAt = new Date();
+  }
 }

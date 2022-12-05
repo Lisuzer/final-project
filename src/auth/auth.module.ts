@@ -2,17 +2,18 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { EmployeeEntity } from 'src/employees/schemas/employee.entity';
-import { UserEntity } from 'src/user/schemas/user.entity';
+import { UserEntity } from '../user/schemas/user.entity';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { UsersService } from 'src/user/user.service';
-import { EmployeesService } from 'src/employees/employees.service';
 import { JwtStrategy } from './guards/jwt.strategy';
 import { RolesGuard } from './guards/role.guard';
+import { EmployeesService } from '../employees/employees.service';
+import { EmployeeEntity } from '../employees/schemas/employee.entity';
+import { UsersModule } from '../user/users.module';
 
 @Module({
   imports: [
+    UsersModule,
     ConfigModule,
     TypeOrmModule.forFeature([UserEntity, EmployeeEntity]),
     JwtModule.registerAsync({
@@ -27,7 +28,7 @@ import { RolesGuard } from './guards/role.guard';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService, EmployeesService, JwtStrategy, RolesGuard],
-  exports: [AuthService]
+  providers: [AuthService, JwtStrategy, RolesGuard, EmployeesService],
+  exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

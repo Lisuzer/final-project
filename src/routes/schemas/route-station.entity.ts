@@ -1,4 +1,4 @@
-import { StationEntity } from 'src/stations/schemas/station.entity';
+import { StationEntity } from '../../stations/schemas/station.entity';
 import {
   BeforeUpdate,
   Column,
@@ -8,18 +8,20 @@ import {
 } from 'typeorm';
 import { RouteEntity } from './route.entity';
 
-@Entity("route_station")
+@Entity('route_station')
 export class RouteStationEntity {
-  @PrimaryColumn("uuid")
+  @PrimaryColumn('uuid')
   stationId: string;
 
-  @ManyToOne(() => StationEntity, { eager: true })
+  @ManyToOne(() => StationEntity, { eager: true, onDelete: 'CASCADE' })
   station: StationEntity;
 
-  @PrimaryColumn("uuid")
+  @PrimaryColumn('uuid')
   routeId: string;
 
-  @ManyToOne(() => RouteEntity, (route) => route.stations, { onDelete: "CASCADE" })
+  @ManyToOne(() => RouteEntity, (route) => route.stations, {
+    onDelete: 'CASCADE',
+  })
   route: RouteEntity;
 
   @Column()

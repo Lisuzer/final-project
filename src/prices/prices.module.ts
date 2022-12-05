@@ -8,6 +8,6 @@ import { PriceEntity } from './schemas/price.entity';
   imports: [TypeOrmModule.forFeature([PriceEntity])],
   controllers: [PricesController],
   providers: [PricesService],
-  exports: [PricesService]
+  exports: [PricesService],
 })
-export class PricesModule { }
+export class PricesModule {}

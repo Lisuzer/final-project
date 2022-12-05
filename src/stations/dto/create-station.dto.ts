@@ -1,3 +1,3 @@
-import { StationDto } from "./station.dto";
+import { StationDto } from './station.dto';
 
-export class CreateStationDto extends StationDto { }
+export class CreateStationDto extends StationDto {}

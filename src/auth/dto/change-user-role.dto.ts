@@ -1,10 +1,17 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { ApiProperty, PickType } from '@nestjs/swagger';
-import { UpdateUserDto } from 'src/user/dto/update-user.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { UserRole } from '../../user/schemas/user-role.enum';
 
-export class ChangeUserRoleDto extends PickType(UpdateUserDto, ['role']) {
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    userId: string;
+export class ChangeUserRoleDto {
+  @ApiProperty({
+    required: false,
+    default: UserRole.PASSENGER,
+  })
+  @IsNotEmpty()
+  role: UserRole;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
 }

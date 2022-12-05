@@ -1,3 +1,3 @@
-import { TrainDto } from "./train.dto";
+import { TrainDto } from './train.dto';
 
-export class CreateTrainDto extends TrainDto { }
+export class CreateTrainDto extends TrainDto {}
